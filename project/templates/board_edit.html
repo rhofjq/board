@@ -1,0 +1,10 @@
+<body>
+  <H1>EDIT</H1>
+  <form name='board_edit' action='/board_edit/{{data[0][0]}}' method='post',enctype='multipart/form-data'>
+    Title<br><input type='text' name='title'><br>
+    Writer<br><input type='text' value={{data[0][3]}} readonly><br>
+    Contents <br><textarea type='text' name='contents' cols='40' rows='10'></textarea><br>
+    FIle<br><input type='file' name='_file'>
+    <br><button type='submit'>수정</button>
+  </form>
+</body>

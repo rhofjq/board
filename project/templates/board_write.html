@@ -1,0 +1,12 @@
+<body>
+  <H1>DOG DRIP WRITE</H1>
+  <form name='board_write' action = '/board_write' method='POST' enctype='multipart/form-data'>
+    Title <br><input type='text' name='title'><br>
+    Writer  <br><input type='text' value= {{data[0][0]}} readonly><br>
+    Contents <br><textarea name='contents' cols='40' rows='10'></textarea><br>
+    File <br><input type='file' name='_file'>
+      <br><button type=submit>등록</button><br>
+      <button type="button" onclick="location.href='/board'">등록취소<br</button>
+  </form>
+</body>
+

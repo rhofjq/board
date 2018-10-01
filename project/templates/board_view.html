@@ -1,0 +1,47 @@
+<body>
+  <H1>{{data[0][0]}} DOGDRIP</H1>
+  <table border="1"
+    <tr>
+      <td>Title</td>
+      <td>{{data[0][1]}}</td>
+    </tr>
+    <tr>
+      <td>Writer</td>
+      <td>{{data[0][3]}}</td>
+    </tr>
+    <tr>
+      <td>Contents</td>
+      <td>{{data[0][2]}}</td>
+    </tr>
+    <tr>
+      <td>File</td>
+      <td><a href='{{data[0][5]}}'>다운</a></td>
+  </table>
+  <br>  <button type='button' onclick="location.href='/board_edit/{{data[0][0]}}'"> 수정</button>
+  <button type='button' onclick="location.href='/board_del/{{data[0][0]}}'">삭제</button>  <br>
+  <br>  <button type='button' onclick="location.href='/board'">뒤로</button> <br>
+
+  <H1>REPLY</H1>
+  <table border="1">
+    <tr>
+      <th>text</th>
+      <th>writer</th>
+      <th>date</th>
+    </tr>
+    {% if data2 %}
+    {% for i in data2%}
+    <tr>
+      <th>{{i[0]}}</th>
+      <th>{{i[1]}}</th>
+      <th>{{i[2]}}&nbsp;&nbsp;
+        <button type='button' onclick="location.href='reply_del'">del</button>
+      </th>
+      <br>
+    </tr>
+    {%endfor%}
+    {%endif%}
+  </table>
+  <form name='board_reply' action='/board/{{data[0][0]}}' method='post' >
+    <input type='text' name='reply'>
+    <input type='submit'>
+</body>

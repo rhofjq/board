@@ -1,0 +1,27 @@
+<body>
+  <H1>DOGDRIP</H1>
+  <table style="border:4px solid green">
+    <tr>
+      <th>idx</th>
+      <th>Title</th>
+      <th>Writer</th>
+      <th>Date</th>
+    </tr>
+    {% if data %}
+    {% for i in data%}
+    <tr>
+      <th>{{i[0]}}</th>
+      <th><a href=/board/{{i[0]}}>{{i[1]}}</a></th>
+      <th>{{i[2]}}</th>
+      <th>{{i[3]}}</th>
+    </tr>
+    {% endfor%}
+    {%endif%}
+  </table>
+  <form name="write" action="/board_write" >
+    <button type="submit">글쓰기</button>
+  </form>
+  <form name="back" action="/login">
+    <button type="submit">뒤로</button>
+  </form>
+</body>
