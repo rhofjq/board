@@ -1,0 +1,9 @@
+<body>
+  {% if data[0][1] == us[0][0] %}
+  <form name=edit action='/reply_edit/{{data[0][0]}}' method='POST'>
+    <input type='text' name='edit'>
+    <input type='submit' name='EDIT'>
+    {% else %}
+    <script>alert('수정권한없음');</script>
+    {%endif%}
+</body>

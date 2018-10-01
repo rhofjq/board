@@ -188,6 +188,7 @@ def board_write():
                 add_board(title,contents,res[0][0],_file)
                 return redirect(url_for('board'))
             else:
+                _file=''
                 add_board(title,contents,res[0][0],_file)
                 return redirect(url_for('board'))
         else: return redirect(url_for('index'))
@@ -232,6 +233,46 @@ def board_del(idx):
         else:return "<script>alert('삭제권한없음');history.back()</script>"
     else: redirect(url_for('index'))
 
+@app.route('/reply_edit/<idx>', methods=['GET','POST'])
+def reply_edit(idx):
+    if request.method == 'GET':
+        res = get_reply_idx(idx)
+        us = get_nick(escape(session['user_email']))
+        return render_template('reply_edit.html',data=res,us=us)
+    else:
+        edit_text = request.form.get('edit')
+        reply_update(idx,edit_text)
+        return redirect(url_for('board_view',idx=idx))
+@app.route('/reply_del/<idx>')
+def reply_del(idx):
+    if 'user_email' in session:
+        res = get_reply_idx(idx)
+        us = get_nick(escape(session['user_email']))
+        if res[0][1] == us[0][0]:
+            reply_del(idx)
+            return redirect(url_for('board_view',idx=idx))
+        else: return "<script>alert('삭제권한없음');history.back()</script>"
+    else:
+        redirect(url_for('index'))
+
+def reply_del(idx):
+    sql = 'delete from board_reply where idx="{}"'.format(idx)
+    db = get_db()
+    db.execute(sql)
+    db.commit()
+def reply_update(idx,edit_text):
+    sql = 'update board_reply set text="{}" where idx="{}"'.format(edit_text,idx)
+    db = get_db()
+    db.execute(sql)
+    db.commit()
+
+def get_reply_idx(idx):
+    sql = 'select idx2,writer from board_reply where idx="{}"'.format(idx)
+    db = get_db()
+    rv = db.execute(sql)
+    res = rv.fetchall()
+    rv.close()
+    return res
 
 def ghkrdls(idx,nick):
     sql = 'select idx,title,text,writer,_file from board where idx="{}" and writer="{}"'.format(idx,nick)
@@ -260,7 +301,7 @@ def board_reply_get2(idx):
     return res
 
 def board_reply_get(idx):
-    sql = 'select text,writer,dt from board_reply where idx2="{}"'.format(idx)
+    sql = 'select idx,text,writer,dt from board_reply where idx2="{}"'.format(idx)
     db = get_db()
     rv = db.execute(sql)
     res = rv.fetchall()

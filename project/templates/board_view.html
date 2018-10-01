@@ -31,10 +31,11 @@
     {% if data2 %}
     {% for i in data2%}
     <tr>
-      <th>{{i[0]}}</th>
       <th>{{i[1]}}</th>
-      <th>{{i[2]}}&nbsp;&nbsp;
-        <button type='button' onclick="location.href='reply_del'">del</button>
+      <th>{{i[2]}}</th>
+      <th>{{i[3]}}&nbsp;&nbsp;
+        <td><button type="button" onclick="location.href='/reply_edit/{{i[0]}}'">Edit</button></td>
+        <td><button type="button" onclick="location.href='/reply_del/{{i[0]}}'">Del</button></td>
       </th>
       <br>
     </tr>
